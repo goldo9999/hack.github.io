@@ -1,4 +1,4 @@
-<html><head><base href="https://darknetaccess.io/services/geolocalisation%20premierement%20retire%20le%20message%20d'avertissement%20quand%20on%20veut%20mettre%20quelquechose%20deuxi%C3%A8mement%20fait%20en%20sorte%20que%20on%20ne%20puisse%20pas%20%C3%A9crire%20dans%20la%20zone%20de%20texte%20et%20quand%20on%20survole%20le%20zone%20de%20texte%20qu'il%20y%20ait%20%C3%A9crit%20vous%20devait%20achet%C3%A9%20nos%20services%20ou%20un%20truc%20comme%20ca"><title>ShadowNet - Géolocalisation Avancée</title>
+<html><head><base href="https://darknetaccess.io/services/geolocalisation%20non%20je%20veux%20que%20tu%20bloque%20le%20bouton%20et%20au%20survole%20je%20veux%20qu'il%20y%20ait%20%C3%A9crit:%20Vous%20devez%20acheter%20nos%20services%20pour%20utiliser%20cette%20fonction"><title>ShadowNet - Géolocalisation Avancée</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -8,6 +8,7 @@
     --accent: #00ff00;
     --secondary: #1a1a1a;
     --card-bg: rgba(26, 26, 26, 0.8);
+    --disabled: #444444;
   }
 
   * {
@@ -119,40 +120,35 @@
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--text);
     border-radius: 5px;
-    cursor: not-allowed;
+  }
+
+  .button-wrapper {
     position: relative;
-  }
-
-  input[type="text"]::after {
-    content: "Vous devez acheter nos services pour utiliser cette fonction";
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: var(--secondary);
-    color: var(--accent);
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  input[type="text"]:hover::after {
-    opacity: 1;
+    display: inline-block;
   }
 
   button {
-    background-color: var(--accent);
-    color: var(--background);
+    background-color: var(--disabled);
+    color: var(--text);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: not-allowed;
     transition: background-color 0.3s ease;
   }
 
-  button:hover {
-    background-color: #00cc00;
+  button:hover::after {
+    content: "Vous devez acheter nos services pour utiliser cette fonction";
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary);
+    color: var(--accent);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
   }
 
   #map {
@@ -218,9 +214,11 @@
         <form action="https://darknetaccess.io/services/geolocalisation/track" method="GET">
           <div class="form-group">
             <label for="device-id">Identifiant de l'appareil :</label>
-            <input type="text" id="device-id" name="device-id" required placeholder="Ex: IMEI, adresse MAC, numéro de téléphone" readonly title="Vous devez acheter nos services pour utiliser cette fonction">
+            <input type="text" id="device-id" name="device-id" required placeholder="Ex: IMEI, adresse MAC, numéro de téléphone">
           </div>
-          <button type="submit">Localiser</button>
+          <div class="button-wrapper">
+            <button type="submit" disabled>Localiser</button>
+          </div>
         </form>
       </div>
     </div>
@@ -238,11 +236,5 @@
     </div>
   </footer>
 
-  <script>
-    document.querySelector('form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert('Vous devez acheter nos services pour utiliser cette fonction.');
-    });
-  </script>
 </body>
 </html>
