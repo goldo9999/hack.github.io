@@ -1,4 +1,4 @@
-<html><head><base href="https://darknetaccess.io/services/surveillance-sociale"><title>ShadowNet - Surveillance Réseaux Sociaux</title>
+<html><head><base href="https://darknetaccess.io/services/surveillance-sociale%20fait%20en%20sorte%20que%20le%20bouton%20Commencer%20la%20Surveillance%20soit%20bloquer%20et%20que%20quand%20un%20le%20survole%20il%20y%20a%20%C3%A9crit:%20Vous%20devez%20acheter%20nos%20services%20pour%20utiliser%20cette%20fonction"><title>ShadowNet - Surveillance Réseaux Sociaux</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
@@ -8,6 +8,7 @@
     --accent: #00ff00;
     --secondary: #1a1a1a;
     --card-bg: rgba(26, 26, 26, 0.8);
+    --disabled: #555555;
   }
 
   * {
@@ -63,7 +64,7 @@
 
   nav ul li a {
     color: var(--text);
-    text-decoration: none;   
+    text-decoration: none;
     font-size: 16px;
     padding: 0 15px;
     transition: color 0.3s ease;
@@ -111,20 +112,31 @@
 
   .cta-button {
     display: inline-block;
-    background-color: var(--accent);
-    color: var(--background);
+    background-color: var(--disabled);
+    color: var(--text);
     padding: 12px 30px;
     border-radius: 30px;
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: 700;
     transition: all 0.3s ease;
+    cursor: not-allowed;
+    position: relative;
   }
 
-  .cta-button:hover {
-    background-color: #00cc00;
-    transform: scale(1.05);
-    box-shadow: 0 0 15px var(--accent);
+  .cta-button:hover::after {
+    content: "Vous devez acheter nos services pour utiliser cette fonction";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary);
+    color: var(--text);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    z-index: 1000;
   }
 
   .disclaimer {
@@ -208,12 +220,12 @@
         <p>Tracez les déplacements d'un utilisateur basé sur ses activités en ligne.</p>
       </div>
       <div class="feature">
-  <h3>Détection de Comptes Multiples</h3>
-  <p>Identifiez les différents comptes appartenant à un même utilisateur à travers diverses plateformes, révélant ainsi leurs identités en ligne cachées.</p>
-</div>
+        <h3>Détection de Comptes Multiples</h3>
+        <p>Identifiez les différents comptes appartenant à un même utilisateur à travers diverses plateformes, révélant ainsi leurs identités en ligne cachées.</p>
+      </div>
     </div>
 
-    <a href="https://darknetaccess.io/services/surveillance-sociale/order" class="cta-button">Commencer la Surveillance</a>
+    <a href="#" class="cta-button">Commencer la Surveillance</a>
 
     <div class="disclaimer">
       <p><strong>Avertissement :</strong> L'utilisation non autorisée de ces techniques pour surveiller des individus sans leur consentement est illégale et contraire à l'éthique. Nous encourageons une utilisation responsable des technologies et le respect de la vie privée.</p>
@@ -227,95 +239,94 @@
   </footer>
 
   <script>
-const networkGraph = document.getElementById('network-graph');
-const numPoints = 100;
-const connectionDistance = 100;
-const points = [];
-let mouseX = 0;
-let mouseY = 0;
+    const networkGraph = document.getElementById('network-graph');
+    const numPoints = 100;
+    const connectionDistance = 100;
+    const points = [];
+    let mouseX = 0;
+    let mouseY = 0;
 
-function createPoint() {
-  const point = document.createElement('div');
-  point.className = 'node';
-  point.style.width = '3px';
-  point.style.height = '3px';
-  return point;
-}
+    function createPoint() {
+      const point = document.createElement('div');
+      point.className = 'node';
+      point.style.width = '3px';
+      point.style.height = '3px';
+      return point;
+    }
 
-function createConnection(start, end) {
-  const connection = document.createElement('div');
-  connection.className = 'edge';
-  return connection;
-}
+    function createConnection(start, end) {
+      const connection = document.createElement('div');
+      connection.className = 'edge';
+      return connection;
+    }
 
-for (let i = 0; i < numPoints; i++) {
-  const point = createPoint();
-  networkGraph.appendChild(point);
-  points.push({
-    element: point,
-    x: Math.random() * networkGraph.clientWidth,
-    y: Math.random() * networkGraph.clientHeight,
-    vx: (Math.random() - 0.5) * 2, // Increased velocity
-    vy: (Math.random() - 0.5) * 2  // Increased velocity
-  });
-}
+    for (let i = 0; i < numPoints; i++) {
+      const point = createPoint();
+      networkGraph.appendChild(point);
+      points.push({
+        element: point,
+        x: Math.random() * networkGraph.clientWidth,
+        y: Math.random() * networkGraph.clientHeight,
+        vx: (Math.random() - 0.5) * 2,
+        vy: (Math.random() - 0.5) * 2
+      });
+    }
 
-networkGraph.addEventListener('mousemove', (e) => {
-  const rect = networkGraph.getBoundingClientRect();
-  mouseX = e.clientX - rect.left;
-  mouseY = e.clientY - rect.top;
-});
-
-function updatePositions() {
-  const connections = [];
-  points.forEach(point => {
-    point.x += point.vx;
-    point.y += point.vy;
-
-    if (point.x < 0 || point.x > networkGraph.clientWidth) point.vx *= -1;
-    if (point.y < 0 || point.y > networkGraph.clientHeight) point.vy *= -1;
-
-    point.element.style.left = `${point.x}px`;
-    point.element.style.top = `${point.y}px`;
-
-    points.forEach(otherPoint => {
-      if (point !== otherPoint) {
-        const dx = otherPoint.x - point.x;
-        const dy = otherPoint.y - point.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < connectionDistance) {
-          connections.push([point, otherPoint]);
-        }
-      }
+    networkGraph.addEventListener('mousemove', (e) => {
+      const rect = networkGraph.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
     });
 
-    // Check distance to mouse cursor
-    const dx = mouseX - point.x;
-    const dy = mouseY - point.y;
-    const distanceToMouse = Math.sqrt(dx * dx + dy * dy);
-    if (distanceToMouse < connectionDistance) {
-      connections.push([point, { x: mouseX, y: mouseY }]);
+    function updatePositions() {
+      const connections = [];
+      points.forEach(point => {
+        point.x += point.vx;
+        point.y += point.vy;
+
+        if (point.x < 0 || point.x > networkGraph.clientWidth) point.vx *= -1;
+        if (point.y < 0 || point.y > networkGraph.clientHeight) point.vy *= -1;
+
+        point.element.style.left = `${point.x}px`;
+        point.element.style.top = `${point.y}px`;
+
+        points.forEach(otherPoint => {
+          if (point !== otherPoint) {
+            const dx = otherPoint.x - point.x;
+            const dy = otherPoint.y - point.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < connectionDistance) {
+              connections.push([point, otherPoint]);
+            }
+          }
+        });
+
+        const dx = mouseX - point.x;
+        const dy = mouseY - point.y;
+        const distanceToMouse = Math.sqrt(dx * dx + dy * dy);
+        if (distanceToMouse < connectionDistance) {
+          connections.push([point, { x: mouseX, y: mouseY }]);
+        }
+      });
+
+      networkGraph.querySelectorAll('.edge').forEach(edge => edge.remove());
+
+      connections.forEach(([start, end]) => {
+        const connection = createConnection(start, end);
+        const length = Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+        const angle = Math.atan2(end.y - start.y, end.x - start.x);
+
+        connection.style.width = `${length}px`;
+        connection.style.left = `${start.x}px`;
+        connection.style.top = `${start.y}px`;
+        connection.style.transform = `rotate(${angle}rad)`;
+
+        networkGraph.appendChild(connection);
+      });
+
+      requestAnimationFrame(updatePositions);
     }
-  });
 
-  networkGraph.querySelectorAll('.edge').forEach(edge => edge.remove());
-
-  connections.forEach(([start, end]) => {
-    const connection = createConnection(start, end);
-    const length = Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
-    const angle = Math.atan2(end.y - start.y, end.x - start.x);
-
-    connection.style.width = `${length}px`;
-    connection.style.left = `${start.x}px`;
-    connection.style.top = `${start.y}px`;
-    connection.style.transform = `rotate(${angle}rad)`;
-
-    networkGraph.appendChild(connection);
-  });
-
-  requestAnimationFrame(updatePositions);
-}
-
-updatePositions();
-</script>
+    updatePositions();
+  </script>
 </body></html>
