@@ -1,0 +1,251 @@
+<html><head><base href="https://darknetaccess.io/services/craquage-mdp%20modifie%20la%20page%20je%20veux%20que%20se%20soit%20un%20truc%20genre%20crackage%20de%20hash%20de%20mot%20de%20passe%20marque%20pas%20simulateur"><title>ShadowNet - Craquage de Hash de Mot de Passe</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&display=swap');
+
+  :root {
+    --background: #0a0a0a;
+    --text: #e0e0e0;
+    --accent: #00ff00;
+    --secondary: #1a1a1a;
+    --danger: #ff4444;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Fira Code', monospace;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--background);
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  header {
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+
+  nav ul li a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 0 15px;
+    transition: color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: var(--accent);
+  }
+
+  main {
+    padding-top: 80px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--accent);
+    text-align: center;
+  }
+
+  .service-description {
+    background-color: var(--secondary);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .hash-cracker {
+    background-color: var(--secondary);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+
+  .hash-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: var(--background);
+    border: 1px solid var(--accent);
+    color: var(--text);
+    font-family: 'Fira Code', monospace;
+  }
+
+  .crack-button {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--background);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .crack-button:hover {
+    background-color: #00cc00;
+    transform: scale(1.05);
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .warning {
+    background-color: rgba(255, 68, 68, 0.1);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  footer {
+    background-color: var(--secondary);
+    color: var(--text);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+  }
+
+  .terminal {
+    background-color: #000;
+    border-radius: 5px;
+    padding: 20px;
+    font-family: 'Fira Code', monospace;
+    color: #0f0;
+    margin-top: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  @keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .cursor {
+    animation: blink 1s infinite;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a href="https://darknetaccess.io/" class="logo">ShadowNet</a>
+      <ul>
+        <li><a href="https://darknetaccess.io/#services">Services</a></li>
+        <li><a href="https://darknetaccess.io/#about">À Propos</a></li>
+        <li><a href="https://darknetaccess.io/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Craquage de Hash de Mot de Passe</h1>
+
+    <div class="service-description">
+      <p>Notre service de craquage de hash de mot de passe utilise des algorithmes cryptographiques avancés et une puissance de calcul distribuée pour retrouver les mots de passe à partir de leurs empreintes hash. Que ce soit pour la récupération de données ou des tests de sécurité autorisés, notre outil offre des performances inégalées.</p>
+    </div>
+
+    <div class="hash-cracker">
+      <h2>Craquage de Hash</h2>
+      <p>Entrez le hash du mot de passe à craquer :</p>
+      <input type="text" id="hash-input" class="hash-input" placeholder="Entrez le hash (MD5, SHA1, SHA256, etc.)">
+      <button id="crack-button" class="crack-button" disabled="" title="Vous devez acheter nos services pour utiliser cette fonction" style="cursor: not-allowed; opacity: 0.6;">Lancer le Craquage</button>
+      <div class="terminal" id="terminal">
+&gt; En attente d'un hash à craquer...<span class="cursor">█</span>
+</div>
+      <div id="result"></div>
+    </div>
+
+    <div class="warning">
+      <p><strong>Avertissement :</strong> L'utilisation de cet outil pour accéder sans autorisation à des données protégées est illégale et contraire à l'éthique. Ce service est fourni uniquement à des fins de recherche en sécurité et de récupération de données autorisée.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2023 ShadowNet. Tous droits réservés. Usage strictement réservé aux professionnels de la sécurité informatique.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const hashInput = document.getElementById('hash-input');
+      const crackButton = document.getElementById('crack-button');
+      const terminal = document.getElementById('terminal');
+      const result = document.getElementById('result');
+
+      crackButton.addEventListener('click', () => {
+        const hash = hashInput.value;
+        terminal.innerHTML = '> Initialisation du système de craquage...<span class="cursor">█</span>';
+        result.textContent = '';
+        
+        let progress = 0;
+        const intervalId = setInterval(() => {
+          progress += Math.random() * 10;
+          if (progress >= 100) {
+            clearInterval(intervalId);
+            terminal.innerHTML += '\n> Craquage terminé.\n> Mot de passe trouvé : ********';
+            result.innerHTML = `Hash cracké : <span style="color: var(--accent)">${generateFakePassword()}</span>`;
+          } else {
+            terminal.innerHTML += `\n> Progression : ${Math.min(Math.round(progress), 99)}%`;
+          }
+          terminal.scrollTop = terminal.scrollHeight;
+        }, 500);
+      });
+
+      function generateFakePassword() {
+        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+        let password = '';
+        for (let i = 0; i < 12; i++) {
+          password += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return password;
+      }
+    });
+  </script>
+</body></html>

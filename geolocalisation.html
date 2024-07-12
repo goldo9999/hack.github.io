@@ -1,0 +1,248 @@
+<html><head><base href="https://darknetaccess.io/services/geolocalisation%20premierement%20retire%20le%20message%20d'avertissement%20quand%20on%20veut%20mettre%20quelquechose%20deuxi%C3%A8mement%20fait%20en%20sorte%20que%20on%20ne%20puisse%20pas%20%C3%A9crire%20dans%20la%20zone%20de%20texte%20et%20quand%20on%20survole%20le%20zone%20de%20texte%20qu'il%20y%20ait%20%C3%A9crit%20vous%20devait%20achet%C3%A9%20nos%20services%20ou%20un%20truc%20comme%20ca"><title>ShadowNet - Géolocalisation Avancée</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+  :root {
+    --background: #0a0a0a;
+    --text: #e0e0e0;
+    --accent: #00ff00;
+    --secondary: #1a1a1a;
+    --card-bg: rgba(26, 26, 26, 0.8);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--background);
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+
+  nav ul li a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 0 15px;
+    transition: color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: var(--accent);
+  }
+
+  main {
+    padding-top: 80px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--accent);
+  }
+
+  .geolocation-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+
+  .geolocation-info {
+    flex: 1;
+    padding-right: 40px;
+  }
+
+  .geolocation-form {
+    flex: 1;
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--accent);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    border-radius: 5px;
+    cursor: not-allowed;
+    position: relative;
+  }
+
+  input[type="text"]::after {
+    content: "Vous devez acheter nos services pour utiliser cette fonction";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--secondary);
+    color: var(--accent);
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  input[type="text"]:hover::after {
+    opacity: 1;
+  }
+
+  button {
+    background-color: var(--accent);
+    color: var(--background);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #00cc00;
+  }
+
+  #map {
+    width: 100%;
+    height: 400px;
+    background-color: var(--secondary);
+    margin-top: 40px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: var(--accent);
+    font-size: 1.2rem;
+  }
+
+  footer {
+    background-color: var(--secondary);
+    color: var(--text);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a href="https://darknetaccess.io" class="logo">ShadowNet</a>
+      <ul>
+        <li><a href="https://darknetaccess.io/#services">Services</a></li>
+        <li><a href="https://darknetaccess.io/#about">À Propos</a></li>
+        <li><a href="https://darknetaccess.io/#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Géolocalisation Avancée</h1>
+    
+    <div class="geolocation-content">
+      <div class="geolocation-info">
+        <h2>Localisation de Précision</h2>
+        <p>Notre service de géolocalisation avancée vous permet de localiser précisément n'importe quel appareil mobile en temps réel. Grâce à notre technologie de pointe, nous pouvons trianguler la position d'un appareil à partir de son adresse IP, des signaux cellulaires et des réseaux Wi-Fi environnants.</p>
+        <h3>Caractéristiques :</h3>
+        <ul>
+          <li>Précision jusqu'à 10 mètres</li>
+          <li>Mise à jour en temps réel</li>
+          <li>Historique des déplacements</li>
+          <li>Compatible avec tous les appareils mobiles</li>
+          <li>Fonctionne même si le GPS est désactivé</li>
+        </ul>
+      </div>
+      
+      <div class="geolocation-form">
+        <h3>Localiser un Appareil</h3>
+        <form action="https://darknetaccess.io/services/geolocalisation/track" method="GET">
+          <div class="form-group">
+            <label for="device-id">Identifiant de l'appareil :</label>
+            <input type="text" id="device-id" name="device-id" required placeholder="Ex: IMEI, adresse MAC, numéro de téléphone" readonly title="Vous devez acheter nos services pour utiliser cette fonction">
+          </div>
+          <button type="submit">Localiser</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="map">
+      <div class="map-overlay">
+        <p>La carte de localisation s'affichera ici une fois l'appareil localisé.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2023 ShadowNet. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Vous devez acheter nos services pour utiliser cette fonction.');
+    });
+  </script>
+</body>
+</html>

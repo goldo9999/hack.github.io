@@ -1,0 +1,264 @@
+<html><head><base href="https://darknetaccess.io/services/comptes-premium%20supprime%20les%2015%20ShadowCoins%20/%20mois%20et%20autres%20a%20la%20place%20que%20je%20veux%20les%20gens%20ne%20puissent%20pas%20cliquer%20sur%20le%20bouton%20%22Obtenir%22%20et%20que%20au%20survole%20il%20y%20ait%20%C3%A9crit:%20Vous%20devez%20acheter%20nos%20services%20pour%20utiliser%20cette%20fonction"><title>ShadowNet - Comptes Premium</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+  :root {
+    --background: #0a0a0a;
+    --text: #e0e0e0;
+    --accent: #00ff00;
+    --secondary: #1a1a1a;
+    --card-bg: rgba(26, 26, 26, 0.8);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--background);
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  header {
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+
+  nav ul li a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 0 15px;
+    transition: color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: var(--accent);
+  }
+
+  main {
+    padding-top: 80px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--accent);
+  }
+
+  .premium-accounts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 50px 0;
+  }
+
+  .account-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .account-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,255,0,0.2);
+  }
+
+  .account-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--accent);
+  }
+
+  .account-card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--background);
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    cursor: not-allowed;
+    position: relative;
+    opacity: 0.7;
+  }
+
+  .cta-button:hover::after {
+    content: "Vous devez acheter nos services pour utiliser cette fonction";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary);
+    color: var(--text);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  .disclaimer {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff6666;
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  footer {
+    background-color: var(--secondary);
+    color: var(--text);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+  }
+
+  .account-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a href="https://darknetaccess.io/" class="logo">ShadowNet</a>
+      <ul>
+        <li><a href="https://darknetaccess.io/#services">Services</a></li>
+        <li><a href="https://darknetaccess.io/about">À Propos</a></li>
+        <li><a href="https://darknetaccess.io/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <h1>Comptes Premium</h1>
+      <div class="premium-accounts">
+        <div class="account-card">
+          <div class="account-icon">🎵</div>
+          <h3>Spotify Premium</h3>
+          <p>Accès illimité à des millions de titres sans publicité.</p>
+          <span class="cta-button">Obtenir</span>
+        </div>
+        <div class="account-card">
+          <div class="account-icon">🎬</div>
+          <h3>Netflix Premium</h3>
+          <p>Streaming HD/4K sur 4 écrans simultanés.</p>
+          <span class="cta-button">Obtenir</span>
+        </div>
+        <div class="account-card">
+          <div class="account-icon">📦</div>
+          <h3>Amazon Prime</h3>
+          <p>Livraison gratuite et accès à Prime Video.</p>
+          <span class="cta-button">Obtenir</span>
+        </div>
+        <div class="account-card">
+          <div class="account-icon">📺</div>
+          <h3>Disney+ Premium</h3>
+          <p>Accès à tout le contenu Disney, Pixar, Marvel, Star Wars et National Geographic.</p>
+          <span class="cta-button">Obtenir</span>
+        </div>
+        <div class="account-card">
+          <div class="account-icon">💻</div>
+          <h3>Adobe Creative Cloud</h3>
+          <p>Suite complète d'outils créatifs Adobe.</p>
+          <span class="cta-button">Obtenir</span>
+        </div>
+        <div class="account-card">
+          <div class="account-icon">🎮</div>
+          <h3>Xbox Game Pass Ultimate</h3>
+          <p>Accès à plus de 100 jeux de haute qualité sur Xbox et PC.</p>
+          <span class="cta-button">Obtenir</span>
+        </div>
+      </div>
+
+      <div class="disclaimer">
+        <p><strong>Avertissement :</strong> Ce site est une démonstration fictive. Les services présentés sont illégaux et ne doivent pas être utilisés dans la réalité. Cette page a été créée uniquement à des fins éducatives pour illustrer les dangers potentiels du dark web et l'importance de la cybersécurité. L'utilisation non autorisée de comptes premium est illégale et peut entraîner des poursuites judiciaires.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2023 ShadowNet. Tous droits réservés. Ceci est une démonstration fictive à des fins éducatives uniquement.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const accountCards = document.querySelectorAll('.account-card');
+      
+      const options = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, options);
+
+      accountCards.forEach(card => {
+        card.style.opacity = 0;
+        card.style.transform = 'translateY(50px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+</body></html>
