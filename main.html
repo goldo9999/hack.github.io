@@ -1,0 +1,397 @@
+<html><head><base href="https://darknetaccess.io/">
+<title>ShadowNet - Services Avancés</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+  :root {
+    --background: #0a0a0a;
+    --text: #e0e0e0;
+    --accent: #00ff00;
+    --secondary: #1a1a1a;
+    --card-bg: rgba(26, 26, 26, 0.8);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--background);
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  #video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1000;
+    background-size: cover;
+    opacity: 0.2;
+  }
+
+  header {
+    background-color: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+  }
+
+  nav ul li a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 16px;
+    padding: 0 15px;
+    transition: color 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    color: var(--accent);
+  }
+
+  main {
+    padding-top: 60px;
+  }
+
+  .hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s forwards;
+    text-shadow: 0 0 10px var(--accent);
+  }
+
+  .hero p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s forwards 0.5s;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--background);
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s forwards 1s;
+  }
+
+  .cta-button:hover {
+    background-color: #00cc00;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent);
+  }
+
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 100px 0;
+  }
+
+  .service-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .service-card.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,255,0,0.2);
+  }
+
+  .service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--accent);
+  }
+
+  .service-card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .disclaimer {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff6666;
+    padding: 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  footer {
+    background-color: var(--secondary);
+    color: var(--text);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+  }
+</style>
+</head>
+<body>
+  <video autoplay="" loop="" muted="" playsinline="" id="video-background">
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-hacker-code-running-in-an-interface-display-42924-large.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la balise vidéo.
+  </video>
+
+  <header>
+    <nav class="container">
+      <a href="#" class="logo">ShadowNet</a>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">À Propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>
+  <span class="dynamic-text"></span>
+  <style>
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes erasewriter {
+  from { width: 100%; }
+  to { width: 0.15em; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.dynamic-text {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 0.15em solid var(--accent);
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  min-width: 0.15em;
+  height: 1.2em; /* Fixed height */
+  line-height: 1.2em; /* Match the height for vertical centering */
+  vertical-align: bottom; /* Align text to bottom */
+  padding-bottom: 0.1em; /* Add a little padding at the bottom */
+}
+
+.dynamic-text.typing {
+  animation: 
+    typewriter 2s steps(30, end) forwards,
+    blink 0.5s step-end infinite;
+}
+
+.dynamic-text.erasing {
+  animation: 
+    erasewriter 2s steps(30, end) forwards,
+    blink 0.5s step-end infinite;
+}
+
+.dynamic-text.blinking {
+  width: 0.15em;
+  animation: blink 0.5s step-end infinite;
+}
+</style>
+  <script>
+const dynamicText = document.querySelector('.dynamic-text');
+const text = "Explorez l'Inconnu";
+
+function typeText() {
+  dynamicText.textContent = '';
+  dynamicText.classList.remove('erasing', 'blinking');
+  dynamicText.classList.add('typing');
+  dynamicText.textContent = text;
+  
+  setTimeout(() => {
+    eraseText();
+  }, 5000);
+}
+
+function eraseText() {
+  dynamicText.classList.remove('typing');
+  dynamicText.classList.add('erasing');
+  
+  setTimeout(() => {
+    dynamicText.textContent = ' '; // Changed to space instead of empty string
+    blinkCursor();
+  }, 2000);
+}
+
+function blinkCursor() {
+  dynamicText.classList.remove('erasing');
+  dynamicText.classList.add('blinking');
+  
+  setTimeout(() => {
+    typeText();
+  }, 2000);
+}
+
+typeText();
+</script>
+</h1>
+        <p>Services avancés pour les curieux audacieux</p>
+        <a href="#services" class="cta-button">Découvrir nos Services</a>
+      </div>
+    </section>
+
+    <section id="services" class="container">
+      <div class="services">
+        <div class="service-card">
+          <h3>Surveillance Réseaux Sociaux</h3>
+          <p>Accédez aux informations cachées des profils sociaux pour révéler la vérité.</p>
+          <a href="https://darknetaccess.io/services/surveillance-sociale" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="service-card">
+          <h3>Géolocalisation Avancée</h3>
+          <p>Localisez précisément n'importe quel appareil mobile en temps réel.</p>
+          <a href="https://darknetaccess.io/services/geolocalisation" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="service-card">
+          <h3>Comptes Premium</h3>
+          <p>Obtenez des accès à Spotify, Netflix, Amazon Prime et plus encore.</p>
+          <a href="https://darknetaccess.io/services/comptes-premium" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="service-card">
+          <h3>Craquage de Mots de Passe</h3>
+          <p>Retrouvez les mots de passe perdus ou accédez à des comptes verrouillés.</p>
+          <a href="https://darknetaccess.io/services/craquage-mdp" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="service-card">
+          <h3>Anonymisation Totale</h3>
+          <p>Naviguez sur internet en toute confidentialité, sans laisser de traces.</p>
+          <a href="https://darknetaccess.io/services/anonymisation" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="service-card">
+          <h3>Accès Dark Web</h3>
+          <p>Plongez dans les profondeurs du web caché en toute sécurité.</p>
+          <a href="https://darknetaccess.io/services/acces-dark-web" class="cta-button">En savoir plus</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="disclaimer">
+        <p><strong>Avertissement :</strong> Ce site est une démonstration fictive. Les services présentés sont illégaux et ne doivent pas être utilisés dans la réalité. Cette page a été créée uniquement à des fins éducatives pour illustrer les dangers potentiels du dark web et l'importance de la cybersécurité.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2023 ShadowNet. Tous droits réservés. Ceci est une démonstration fictive à des fins éducatives uniquement.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const serviceCards = document.querySelectorAll('.service-card');
+      
+      const options = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px"
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          } else {
+            entry.target.classList.remove('active');
+          }
+        });
+      }, options);
+
+      serviceCards.forEach(card => {
+        observer.observe(card);
+      });
+
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+  </script>
+
+</body></html>
