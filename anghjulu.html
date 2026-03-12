@@ -1,398 +1,335 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  ShieldAlert, 
-  Database, 
-  Target, 
-  Users, 
-  MessageSquare, 
-  Lock, 
-  Activity, 
-  Radio, 
-  AlertTriangle,
-  Zap,
-  Eye,
-  Terminal as TerminalIcon,
-  ChevronRight,
-  Wifi
-} from 'lucide-react';
-
-const App = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
-  const [threatLevel, setThreatLevel] = useState('EUKLID');
-  const [isLogged, setIsLogged] = useState(false);
-  const [logs, setLogs] = useState([
-    "Initialisation de la liaison satellite...",
-    "Accès sécurisé au Site-19 accordé.",
-    "Interception d'un signal crypté dans le Secteur 4.",
-    "Surveillance active du SCP-173 confirmée."
-  ]);
-
-  // Simulation d'ajouts de logs
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const newLogs = [
-        "Mise à jour du statut : Agent 04 déconnecté.",
-        "Tentative d'intrusion détectée au Site-01 (Bloquée).",
-        "Rapport de confinement SCP-682 reçu.",
-        "Transfert de données classifiées vers l'O5 Council..."
-      ];
-      const randomLog = newLogs[Math.floor(Math.random() * newLogs.length)];
-      setLogs(prev => [randomLog, ...prev.slice(0, 5)]);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!isLogged) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center font-mono p-4 overflow-hidden relative">
-        <CRTOverlay />
-        <div className="max-w-md w-full border border-green-900 bg-black p-8 relative z-10 shadow-[0_0_20px_rgba(0,100,0,0.3)]">
-          <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 border-2 border-green-500 rounded-full flex items-center justify-center animate-pulse">
-              <ShieldAlert className="text-green-500 w-12 h-12" />
-            </div>
-          </div>
-          <h1 className="text-green-500 text-center text-xl mb-8 tracking-[0.2em]">FONDATION SCP : SCINET</h1>
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 border-b border-green-900 pb-2">
-              <span className="text-green-700 text-sm">ID:</span>
-              <input type="text" placeholder="Général-05" className="bg-transparent text-green-500 outline-none w-full" />
-            </div>
-            <div className="flex items-center gap-2 border-b border-green-900 pb-2">
-              <span className="text-green-700 text-sm">PWD:</span>
-              <input type="password" placeholder="********" className="bg-transparent text-green-500 outline-none w-full" />
-            </div>
-            <button 
-              onClick={() => setIsLogged(true)}
-              className="w-full py-3 bg-green-900/30 text-green-500 border border-green-500 hover:bg-green-500 hover:text-black transition-all duration-300 font-bold mt-4"
-            >
-              ACCÉDER AU TERMINAL
-            </button>
-          </div>
-          <p className="text-[10px] text-green-900 mt-6 text-center">
-            ATTENTION : TOUT ACCÈS NON AUTORISÉ SERA TRAITÉ PAR L'AGENT DE SUPPRESSION COGNITIF "BERRYMAN-LANGFORD".
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-black text-green-500 font-mono flex flex-col md:flex-row overflow-hidden relative">
-      <CRTOverlay />
-      
-      {/* Sidebar Navigation */}
-      <nav className="w-full md:w-64 border-b md:border-b-0 md:border-r border-green-900 bg-black/80 flex flex-col z-20">
-        <div className="p-6 border-b border-green-900 flex items-center gap-3">
-          <ShieldAlert className="w-6 h-6 text-red-500 animate-pulse" />
-          <span className="font-bold tracking-tighter text-lg">SCINET-V4</span>
-        </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL SCINET-V4 - FONDATION SCP</title>
+    <!-- Tailwind CSS pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React et ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel pour compiler le JSX dans le navigateur -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;700&display=swap');
         
-        <div className="flex-1 py-4">
-          <NavItem icon={<Activity />} label="Dashboard" active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} />
-          <NavItem icon={<Database />} label="Dossiers SCP" active={activeTab === 'scps'} onClick={() => setActiveTab('scps')} />
-          <NavItem icon={<Target />} label="Missions" active={activeTab === 'missions'} onClick={() => setActiveTab('missions')} />
-          <NavItem icon={<Users />} label="Personnel" active={activeTab === 'personnel'} onClick={() => setActiveTab('personnel')} />
-          <NavItem icon={<MessageSquare />} label="Communications" active={activeTab === 'comms'} onClick={() => setActiveTab('comms')} />
-        </div>
+        body {
+            background-color: black;
+            font-family: 'Fira+Code', monospace;
+            margin: 0;
+            overflow: hidden;
+        }
 
-        <div className="p-4 border-t border-green-900 bg-green-950/10">
-          <div className="text-[10px] text-green-800 mb-1">NIVEAU D'ACCÈS</div>
-          <div className="text-xs font-bold text-red-500">CLEARANCE LEVEL 5</div>
-          <div className="mt-2 flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-            <span className="text-[10px] text-red-700 uppercase tracking-widest">Alerte Critique</span>
-          </div>
-        </div>
-      </nav>
+        /* Effets CRT et Scanlines */
+        .crt-overlay {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 3px, 3px 100%;
+        }
 
-      {/* Main Content Area */}
-      <main className="flex-1 flex flex-col relative z-10 overflow-y-auto">
-        <header className="p-4 border-b border-green-900 flex justify-between items-center bg-black/50 backdrop-blur-sm sticky top-0 z-20">
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-green-800">[ SYSTEM_READY ]</span>
-            <div className="h-4 w-[1px] bg-green-900" />
-            <span className="text-xs flex items-center gap-2">
-              <Wifi className="w-3 h-3 text-green-500" /> SITE-19_CONNECTED
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-xs uppercase">Menace:</span>
-            <select 
-              className="bg-black border border-green-900 text-xs text-orange-500 p-1 outline-none"
-              value={threatLevel}
-              onChange={(e) => setThreatLevel(e.target.value)}
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 101;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(34, 197, 94, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            to { bottom: -100px; }
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #065f46; border-radius: 10px; }
+
+        .terminal-flicker {
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Composant Icône pour gérer Lucide sans imports ESM
+        const Icon = ({ name, className = "w-5 h-5", ...props }) => {
+            const iconRef = useRef(null);
+            useEffect(() => {
+                if (iconRef.current) {
+                    lucide.createIcons({
+                        attrs: { class: className },
+                        nameAttr: 'data-lucide'
+                    });
+                }
+            }, [name, className]);
+            return <i data-lucide={name} ref={iconRef} {...props}></i>;
+        };
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('dashboard');
+            const [threatLevel, setThreatLevel] = useState('EUKLID');
+            const [isLogged, setIsLogged] = useState(false);
+            const [logs, setLogs] = useState([
+                "Initialisation de la liaison satellite...",
+                "Accès sécurisé au Site-19 accordé.",
+                "Interception d'un signal crypté dans le Secteur 4.",
+                "Surveillance active du SCP-173 confirmée."
+            ]);
+
+            useEffect(() => {
+                if (!isLogged) return;
+                const interval = setInterval(() => {
+                    const messages = [
+                        "Alerte : Agent 04 déconnecté.",
+                        "Intrusion Site-01 bloquée.",
+                        "Rapport SCP-682 reçu.",
+                        "Transfert O5 en cours...",
+                        "Anomalie Aile Est détectée."
+                    ];
+                    setLogs(prev => [messages[Math.floor(Math.random() * messages.length)], ...prev.slice(0, 5)]);
+                }, 5000);
+                return () => clearInterval(interval);
+            }, [isLogged]);
+
+            if (!isLogged) {
+                return (
+                    <div className="min-h-screen bg-black flex items-center justify-center p-4 relative">
+                        <div className="crt-overlay"></div>
+                        <div className="scanline"></div>
+                        <div className="max-w-md w-full border border-green-900 bg-black/80 p-8 relative z-10 shadow-[0_0_50px_rgba(0,100,0,0.2)]">
+                            <div className="flex justify-center mb-6">
+                                <div className="w-16 h-16 border-2 border-green-500 rounded-full flex items-center justify-center animate-pulse">
+                                    <Icon name="shield-alert" className="text-green-500 w-10 h-10" />
+                                </div>
+                            </div>
+                            <h1 className="text-green-500 text-center text-xl mb-8 tracking-[0.3em] font-bold">SCINET-V4</h1>
+                            <div className="space-y-4">
+                                <div className="border-b border-green-900 pb-2 flex items-center gap-2">
+                                    <span className="text-green-800 text-xs font-bold uppercase">ID:</span>
+                                    <input type="text" placeholder="O5-ADMIN" className="bg-transparent text-green-500 outline-none w-full placeholder:text-green-950 uppercase" />
+                                </div>
+                                <div className="border-b border-green-900 pb-2 flex items-center gap-2">
+                                    <span className="text-green-800 text-xs font-bold uppercase">PWD:</span>
+                                    <input type="password" placeholder="********" className="bg-transparent text-green-500 outline-none w-full placeholder:text-green-950" />
+                                </div>
+                                <button 
+                                    onClick={() => setIsLogged(true)}
+                                    className="w-full py-3 bg-green-900/20 text-green-500 border border-green-500 hover:bg-green-500 hover:text-black transition-all font-bold mt-4 tracking-widest"
+                                >
+                                    INITIALISER LIAISON
+                                </button>
+                            </div>
+                            <p className="text-[9px] text-green-900 mt-8 text-center uppercase leading-tight">
+                                Accès restreint. Le personnel non autorisé sera traité par agent mémétique.
+                            </p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-black text-green-500 flex flex-col md:flex-row overflow-hidden relative">
+                    <div className="crt-overlay"></div>
+                    <div className="scanline"></div>
+                    
+                    {/* Sidebar */}
+                    <nav className="w-full md:w-64 border-b md:border-b-0 md:border-r border-green-900 bg-black/90 flex flex-col z-20">
+                        <div className="p-6 border-b border-green-900 flex items-center gap-3">
+                            <Icon name="shield-alert" className="text-red-500 w-6 h-6 animate-pulse" />
+                            <span className="font-bold tracking-tighter text-lg">SCINET-V4</span>
+                        </div>
+                        <div className="flex-1 py-4 overflow-y-auto">
+                            <NavItem icon="activity" label="Dashboard" active={activeTab === 'dashboard'} onClick={() => setActiveTab('dashboard')} />
+                            <NavItem icon="database" label="Dossiers SCP" active={activeTab === 'scps'} onClick={() => setActiveTab('scps')} />
+                            <NavItem icon="target" label="Missions" active={activeTab === 'missions'} onClick={() => setActiveTab('missions')} />
+                            <NavItem icon="users" label="Personnel" active={activeTab === 'personnel'} onClick={() => setActiveTab('personnel')} />
+                            <NavItem icon="message-square" label="Comms" active={activeTab === 'comms'} onClick={() => setActiveTab('comms')} />
+                        </div>
+                        <div className="p-4 border-t border-green-900 bg-green-950/10">
+                            <div className="text-[10px] text-green-800 uppercase tracking-widest font-bold mb-1">Niveau d'accès</div>
+                            <div className="text-xs font-bold text-red-500 animate-pulse">LEVEL 5 - OVERSEER</div>
+                        </div>
+                    </nav>
+
+                    {/* Main Content */}
+                    <main className="flex-1 flex flex-col z-10 overflow-hidden">
+                        <header className="p-4 border-b border-green-900 flex justify-between items-center bg-black/80">
+                            <div className="flex items-center gap-4">
+                                <span className="text-[10px] text-green-800 font-bold">[ KERNEL_OK ]</span>
+                                <div className="h-4 w-[1px] bg-green-900" />
+                                <span className="text-xs flex items-center gap-2">
+                                    <Icon name="wifi" className="w-3 h-3 text-green-500 animate-pulse" /> SITE-19_LINKED
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-[10px] text-green-800 font-bold uppercase">Menace:</span>
+                                <select 
+                                    className="bg-black border border-green-900 text-xs text-orange-500 p-1 outline-none"
+                                    value={threatLevel}
+                                    onChange={(e) => setThreatLevel(e.target.value)}
+                                >
+                                    <option value="SAFE" className="text-green-500">SAFE</option>
+                                    <option value="EUKLID" className="text-orange-500">EUKLID</option>
+                                    <option value="KETER" className="text-red-500">KETER</option>
+                                    <option value="APOLLYON" className="text-purple-500">APOLLYON</option>
+                                </select>
+                            </div>
+                        </header>
+
+                        <section className="p-6 flex-1 overflow-y-auto custom-scrollbar">
+                            {activeTab === 'dashboard' && <Dashboard logs={logs} />}
+                            {activeTab === 'scps' && <SCPDossiers />}
+                            {activeTab === 'missions' && <MissionsView />}
+                            {activeTab === 'personnel' && <PersonnelView />}
+                            {activeTab === 'comms' && <CommunicationsView logs={logs} />}
+                        </section>
+                    </main>
+                </div>
+            );
+        };
+
+        const NavItem = ({ icon, label, active, onClick }) => (
+            <button 
+                onClick={onClick}
+                className={`w-full flex items-center gap-4 px-6 py-4 transition-all border-l-2 ${active ? 'border-green-500 bg-green-500/10 text-green-400' : 'border-transparent text-green-900 hover:text-green-600'}`}
             >
-              <option value="SAFE" className="text-green-500">SAFE</option>
-              <option value="EUKLID" className="text-orange-500">EUKLID</option>
-              <option value="KETER" className="text-red-500">KETER</option>
-              <option value="APOLLYON" className="text-purple-500 font-bold">APOLLYON</option>
-            </select>
-          </div>
-        </header>
+                <Icon name={icon} className="w-4 h-4" />
+                <span className="text-[11px] font-bold uppercase tracking-widest">{label}</span>
+            </button>
+        );
 
-        <section className="p-6 flex-1">
-          {activeTab === 'dashboard' && <Dashboard logs={logs} />}
-          {activeTab === 'scps' && <SCPDossiers />}
-          {activeTab === 'missions' && <MissionsView />}
-          {activeTab === 'personnel' && <PersonnelView />}
-          {activeTab === 'comms' && <CommunicationsView logs={logs} />}
-        </section>
-      </main>
-    </div>
-  );
-};
+        const Dashboard = ({ logs }) => (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in">
+                <div className="lg:col-span-2 border border-green-900 bg-black/40 p-4 h-[350px] relative flex items-center justify-center overflow-hidden">
+                    <div className="absolute top-2 left-2 text-[9px] font-bold text-green-800 uppercase">SURVEILLANCE_RADAR.EXE</div>
+                    <Icon name="alert-triangle" className="text-red-600 w-16 h-16 animate-bounce opacity-50" />
+                    <div className="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+                        <svg viewBox="0 0 100 100" className="w-full h-full stroke-green-500 fill-none"><circle cx="50" cy="50" r="45" /><circle cx="50" cy="50" r="30" /><line x1="50" y1="0" x2="50" y2="100" /><line x1="0" y1="50" x2="100" y2="50" /></svg>
+                    </div>
+                </div>
+                <div className="border border-green-900 bg-black/40 p-4">
+                    <h3 className="text-xs font-bold border-b border-green-900 pb-2 mb-4 uppercase text-green-800">Statut des Sites</h3>
+                    <div className="space-y-4">
+                        <SiteStat name="Site-19" status="CRITIQUE" color="text-red-500" />
+                        <SiteStat name="Site-17" status="STABLE" color="text-green-500" />
+                        <SiteStat name="Site-01" status="SÉCURISÉ" color="text-green-500" />
+                    </div>
+                </div>
+                <div className="lg:col-span-3 border border-green-900 bg-black/60 p-4">
+                    <h3 className="text-[10px] font-bold uppercase text-green-800 border-b border-green-950 pb-2 mb-2">Flux de Données Temps Réel</h3>
+                    <div className="font-mono text-[11px] space-y-1">
+                        {logs.map((log, i) => (
+                            <div key={i} className="flex gap-4 opacity-80">
+                                <span className="text-green-900">[{new Date().toLocaleTimeString()}]</span>
+                                <span className={i === 0 ? "text-green-400" : "text-green-700"}>{i === 0 ? "> " : "  "}{log}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
 
-// --- Sub-Components ---
+        const SiteStat = ({ name, status, color }) => (
+            <div className="flex justify-between items-center text-[11px]">
+                <span className="font-bold">{name}</span>
+                <span className={`${color} font-black`}>{status}</span>
+            </div>
+        );
 
-const CRTOverlay = () => (
-  <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
-    <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]" />
-    <div className="absolute inset-0 animate-scan opacity-20 bg-gradient-to-b from-transparent via-green-500/20 to-transparent h-20 w-full" style={{ animation: 'scan 8s linear infinite' }} />
-    <style>{`
-      @keyframes scan {
-        from { transform: translateY(-100%); }
-        to { transform: translateY(1000%); }
-      }
-    `}</style>
-  </div>
-);
+        const SCPDossiers = () => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                    { id: 'SCP-173', class: 'Euclid', desc: 'Sculpture animée. Hostile.' },
+                    { id: 'SCP-682', class: 'Keter', desc: 'Reptile indestructible. Haine extrême.' },
+                    { id: 'SCP-096', class: 'Euclid', desc: 'Réagit si le visage est vu.' },
+                    { id: 'SCP-999', class: 'Safe', desc: 'Masse de gelée. Amicale.' }
+                ].map(scp => (
+                    <div key={scp.id} className="border border-green-900 bg-black/40 p-4 hover:border-green-500 transition-colors">
+                        <div className="flex justify-between items-start mb-2">
+                            <h4 className="text-lg font-black tracking-tight text-green-400">{scp.id}</h4>
+                            <span className="text-[9px] border border-green-900 px-1 uppercase text-green-700">{scp.class}</span>
+                        </div>
+                        <p className="text-[11px] italic text-green-800 mb-2">{scp.desc}</p>
+                        <div className="flex justify-between items-center pt-2 border-t border-green-950">
+                            <span className="text-[10px] uppercase text-green-900">Statut: Contenu</span>
+                            <Icon name="eye" className="w-3 h-3 text-green-900" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        );
 
-const NavItem = ({ icon, label, active, onClick }) => (
-  <button 
-    onClick={onClick}
-    className={`w-full flex items-center gap-4 px-6 py-4 transition-all duration-200 border-l-4 ${active ? 'border-green-500 bg-green-500/10 text-green-400' : 'border-transparent text-green-900 hover:text-green-600 hover:bg-green-950/5'}`}
-  >
-    {React.cloneElement(icon, { size: 18 })}
-    <span className="text-sm font-semibold tracking-wide uppercase">{label}</span>
-  </button>
-);
+        const MissionsView = () => (
+            <div className="space-y-3">
+                {[
+                    { title: "OPÉRATION RIDEAU NOIR", risk: "HAUT", prog: 65 },
+                    { title: "PROJET GHOST-WALKER", risk: "EXTRÊME", prog: 30 }
+                ].map((m, i) => (
+                    <div key={i} className="border border-green-900 bg-black/40 p-4 flex justify-between items-center">
+                        <div className="flex items-center gap-3">
+                            <Icon name="target" className="w-5 h-5 text-orange-500" />
+                            <div>
+                                <h4 className="text-xs font-bold uppercase">{m.title}</h4>
+                                <div className="w-32 h-1 bg-green-950 mt-1"><div className="h-full bg-green-500" style={{width: `${m.prog}%`}}></div></div>
+                            </div>
+                        </div>
+                        <span className="text-[10px] font-black text-red-700">RISQUE: {m.risk}</span>
+                    </div>
+                ))}
+            </div>
+        );
 
-const Dashboard = ({ logs }) => (
-  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-in fade-in duration-500">
-    {/* Map/Radar Section */}
-    <div className="lg:col-span-2 border border-green-900 bg-black/40 p-4 h-96 relative flex items-center justify-center overflow-hidden">
-      <div className="absolute top-2 left-2 text-[10px] text-green-800">GLOBAL_SURVEILLANCE_RADAR.EXE</div>
-      <div className="w-full h-full opacity-30 pointer-events-none absolute inset-0">
-        <svg viewBox="0 0 800 400" className="w-full h-full stroke-green-900 fill-none stroke-[0.5]">
-          <path d="M0 200h800M400 0v400M100 0v400M200 0v400M300 0v400M500 0v400M600 0v400M700 0v400" />
-          <circle cx="400" cy="200" r="50" />
-          <circle cx="400" cy="200" r="100" />
-          <circle cx="400" cy="200" r="150" />
-        </svg>
-      </div>
-      <div className="relative text-center">
-        <div className="flex justify-center mb-4">
-          <Radio className="text-red-500 w-12 h-12 animate-ping" />
-        </div>
-        <p className="text-red-500 font-bold mb-1">BRÈCHE DE CONFINEMENT DÉTECTÉE</p>
-        <p className="text-xs text-green-700 italic underline uppercase tracking-tighter">Site-19 : Secteur de confinement 4</p>
-      </div>
-      <div className="absolute bottom-2 right-2 flex gap-2">
-        <div className="h-2 w-2 bg-green-500" />
-        <div className="h-2 w-2 bg-green-500 animate-pulse" />
-        <div className="h-2 w-2 bg-red-500 animate-ping" />
-      </div>
-    </div>
+        const PersonnelView = () => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {["Dr. Bright", "Agent Ulgrin", "Agent 04", "Dr. Gears", "Dr. Kondraki", "Classe-D"].map((n, i) => (
+                    <div key={i} className="border border-green-900 p-4 bg-black/40 text-center group hover:bg-green-500/5 transition-all">
+                        <Icon name="users" className="w-6 h-6 mx-auto mb-2 text-green-800 group-hover:text-green-500" />
+                        <span className="text-[10px] font-bold uppercase">{n}</span>
+                    </div>
+                ))}
+            </div>
+        );
 
-    {/* Site Status List */}
-    <div className="border border-green-900 bg-black/40 p-4">
-      <h3 className="text-xs font-bold border-b border-green-900 pb-2 mb-4 flex items-center gap-2">
-        <Zap className="w-3 h-3" /> STATUT DES SITES
-      </h3>
-      <div className="space-y-4">
-        <SiteStatus site="Site-19" status="Critique" color="text-red-500" progress={92} />
-        <SiteStatus site="Site-17" status="Stable" color="text-green-500" progress={12} />
-        <SiteStatus site="Site-01" status="Haut-Secret" color="text-amber-500" progress={0} />
-        <SiteStatus site="Site-81" status="Alerte" color="text-orange-500" progress={45} />
-      </div>
-    </div>
+        const CommunicationsView = ({ logs }) => (
+            <div className="flex flex-col h-full border border-green-900 bg-black/40 rounded-sm">
+                <div className="p-3 border-b border-green-900 bg-green-500/5 text-[10px] font-bold">INTERCEPTIONS_VOIP.DB</div>
+                <div className="flex-1 p-4 space-y-4 overflow-y-auto">
+                    <div className="text-[11px]"><span className="text-green-800">[04:21] </span><span className="font-bold text-green-400">SYS: </span>Alerte Protocole 12-A activée.</div>
+                    <div className="text-[11px]"><span className="text-green-800">[04:25] </span><span className="font-bold text-red-500">UNK: </span>Nous vous voyons.</div>
+                    {logs.map((l, i) => <div key={i} className="text-[10px] text-green-900 border-l border-green-950 pl-2">INT_AUTO: {l}</div>)}
+                </div>
+                <div className="p-3 border-t border-green-900 flex gap-2">
+                    <div className="text-green-500 text-xs py-1">&gt;</div>
+                    <input type="text" placeholder="COMMANDE..." className="bg-transparent text-xs text-green-500 flex-1 outline-none uppercase placeholder:text-green-950" />
+                    <Icon name="chevron-right" className="w-4 h-4 text-green-900" />
+                </div>
+            </div>
+        );
 
-    {/* Terminal Logs Dashboard */}
-    <div className="lg:col-span-3 border border-green-900 bg-black/60 p-4">
-      <h3 className="text-xs font-bold border-b border-green-900 pb-2 mb-2">FLUX DE DONNÉES EN DIRECT</h3>
-      <div className="font-mono text-[11px] space-y-1">
-        {logs.map((log, i) => (
-          <div key={i} className="flex gap-4">
-            <span className="text-green-900">[{new Date().toLocaleTimeString()}]</span>
-            <span className={i === 0 ? "text-green-400 font-bold" : "text-green-700"}>
-              {i === 0 && "> "} {log}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
-const SiteStatus = ({ site, status, color, progress }) => (
-  <div>
-    <div className="flex justify-between items-center mb-1">
-      <span className="text-xs">{site}</span>
-      <span className={`text-[10px] uppercase font-bold ${color}`}>{status}</span>
-    </div>
-    <div className="w-full h-1 bg-green-950">
-      <div className={`h-full bg-current ${color}`} style={{ width: `${progress}%` }} />
-    </div>
-  </div>
-);
-
-const SCPDossiers = () => {
-  const scps = [
-    { id: 'SCP-173', class: 'Euklid', desc: 'Sculpture animée. Hostile. Ne pas rompre le contact visuel.', status: 'Contenu' },
-    { id: 'SCP-682', class: 'Keter', desc: 'Reptile difficile à détruire. Haine extrême pour la vie.', status: 'Tentative de Brèche' },
-    { id: 'SCP-096', class: 'Euklid', desc: "L'Homme Timide. Ne pas regarder son visage.", status: 'Contenu' },
-    { id: 'SCP-999', class: 'Safe', desc: 'Masse de gelée orange. Provoque euphorie.', status: 'Libre (Site-17)' },
-  ];
-
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in slide-in-from-bottom-4 duration-500">
-      {scps.map(scp => (
-        <div key={scp.id} className="border border-green-900 bg-black/40 p-4 hover:bg-green-500/5 transition-colors group cursor-pointer">
-          <div className="flex justify-between items-start mb-2">
-            <h4 className="text-lg font-bold group-hover:text-green-400 tracking-tighter">{scp.id}</h4>
-            <span className={`text-[10px] px-2 py-0.5 border ${scp.class === 'Keter' ? 'border-red-500 text-red-500' : 'border-green-800 text-green-700'}`}>
-              CLASSE: {scp.class.toUpperCase()}
-            </span>
-          </div>
-          <p className="text-xs text-green-700 mb-4 line-clamp-2 italic">{scp.desc}</p>
-          <div className="flex justify-between items-center pt-2 border-t border-green-950">
-            <span className="text-[10px] uppercase tracking-widest text-green-900">Statut: {scp.status}</span>
-            <Eye className="w-4 h-4 text-green-900 group-hover:text-green-500" />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const MissionsView = () => (
-  <div className="space-y-4 animate-in fade-in duration-500">
-    <MissionCard 
-      title="Opération Veille de Nuit" 
-      target="Extraction du SCP-XXX" 
-      status="En cours" 
-      risk="Haut"
-      progress={65}
-    />
-    <MissionCard 
-      title="Projet GHOST-WALKER" 
-      target="Infiltration Groupe d'Intérêt : Chaos Insurgency" 
-      status="Infiltration" 
-      risk="Extreme"
-      progress={30}
-    />
-    <MissionCard 
-      title="Nettoyage Secteur 9" 
-      target="Élimination des résidus de SCP-610" 
-      status="Terminé" 
-      risk="Moyen"
-      progress={100}
-    />
-  </div>
-);
-
-const MissionCard = ({ title, target, status, risk, progress }) => (
-  <div className="border border-green-900 bg-black/40 p-4 flex flex-col md:flex-row gap-4 items-center">
-    <div className="flex-1">
-      <div className="flex items-center gap-2 mb-1">
-        <Target className="w-4 h-4 text-orange-500" />
-        <h4 className="font-bold text-sm uppercase">{title}</h4>
-      </div>
-      <p className="text-xs text-green-800">{target}</p>
-    </div>
-    <div className="w-full md:w-48">
-      <div className="flex justify-between text-[10px] mb-1">
-        <span>PROGRESSION</span>
-        <span>{progress}%</span>
-      </div>
-      <div className="h-1 bg-green-950 w-full overflow-hidden">
-        <div className="h-full bg-green-500" style={{ width: `${progress}%` }} />
-      </div>
-    </div>
-    <div className="text-right min-w-[100px]">
-      <div className={`text-xs font-bold ${risk === 'Extreme' ? 'text-red-500 animate-pulse' : 'text-orange-500'}`}>RISQUE: {risk}</div>
-      <div className="text-[10px] text-green-900 uppercase">{status}</div>
-    </div>
-  </div>
-);
-
-const PersonnelView = () => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-in zoom-in-95 duration-500">
-    <PersonCard name="Dr. Bright" role="Chercheur Senior" site="Site-19" status="Actif" />
-    <PersonCard name="Agent Ulgrin" role="Sécurité Tactique" site="Site-17" status="Actif" />
-    <PersonCard name="Dr. Kondraki" role="Chef de Recherche" site="Site-01" status="Classifié" />
-    <PersonCard name="Agent 04" role="Infiltré" site="Inconnu" status="MIA" alert />
-    <PersonCard name="Dr. Gears" role="Ingénieur Confinement" site="Site-19" status="Actif" />
-    <PersonCard name="Personnel Classe-D" role="Sujet de test" site="Site-19" status="En attente" />
-  </div>
-);
-
-const PersonCard = ({ name, role, site, status, alert }) => (
-  <div className={`border p-4 bg-black/40 ${alert ? 'border-red-900 bg-red-950/5' : 'border-green-900'}`}>
-    <div className="flex items-center gap-3 mb-3">
-      <div className="w-10 h-10 border border-green-800 flex items-center justify-center bg-green-500/5">
-        <Users className={alert ? 'text-red-500' : 'text-green-500'} />
-      </div>
-      <div>
-        <h5 className={`font-bold text-sm ${alert ? 'text-red-500' : 'text-green-400'}`}>{name}</h5>
-        <p className="text-[10px] text-green-800 uppercase tracking-tighter">{role}</p>
-      </div>
-    </div>
-    <div className="flex justify-between text-[10px] text-green-900 border-t border-green-950 pt-2">
-      <span>LOCAL: {site}</span>
-      <span className={alert ? 'text-red-700 animate-pulse' : ''}>{status}</span>
-    </div>
-  </div>
-);
-
-const CommunicationsView = ({ logs }) => (
-  <div className="h-full flex flex-col border border-green-900 bg-black/40 animate-in fade-in duration-500">
-    <div className="p-3 border-b border-green-900 flex justify-between items-center bg-green-500/5">
-      <span className="text-xs font-bold flex items-center gap-2">
-        <MessageSquare className="w-4 h-4" /> INTERCEPTIONS_LOGS.DB
-      </span>
-      <span className="text-[10px] text-green-800">TOTAL: 482 MESSAGES</span>
-    </div>
-    <div className="flex-1 p-4 overflow-y-auto space-y-4 scrollbar-thin scrollbar-thumb-green-900">
-      <ChatMessage user="SYS_ADMIN" msg="Alerte : Le protocole 12-A est activé. Ne répondez pas à ce message." time="04:21" />
-      <ChatMessage user="AGENT_L" msg="Cible en vue. En attente d'autorisation de neutralisation." time="04:25" />
-      <ChatMessage user="DR_V" msg="Les échantillons de SCP-008 ont été transférés. Le transport est sécurisé." time="04:40" isSelf />
-      <ChatMessage user="UNKNOWN" msg="Nous vous voyons. La Fondation n'est pas éternelle." time="05:12" warning />
-      {logs.map((log, i) => (
-         <div key={i} className="text-[10px] text-green-900 italic border-l border-green-900 pl-2">
-           INTERCEPTION AUTO: {log}
-         </div>
-      ))}
-    </div>
-    <div className="p-3 border-t border-green-900 bg-black">
-      <div className="flex gap-2">
-        <div className="text-green-500 text-xs py-2 px-1">&gt;</div>
-        <input 
-          type="text" 
-          placeholder="Entrer commande cryptée..." 
-          className="flex-1 bg-transparent text-green-500 outline-none text-xs placeholder:text-green-950" 
-        />
-        <button className="text-green-900 hover:text-green-500 p-1">
-          <ChevronRight />
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
-const ChatMessage = ({ user, msg, time, isSelf, warning }) => (
-  <div className={`flex flex-col ${isSelf ? 'items-end' : 'items-start'}`}>
-    <div className="flex items-center gap-2 mb-1">
-      <span className={`text-[10px] font-bold ${warning ? 'text-red-500' : isSelf ? 'text-green-500' : 'text-green-700'}`}>
-        {user}
-      </span>
-      <span className="text-[9px] text-green-900">{time}</span>
-    </div>
-    <div className={`max-w-[80%] p-2 text-xs border ${warning ? 'border-red-500 bg-red-900/10 text-red-400' : isSelf ? 'border-green-500 bg-green-500/10' : 'border-green-900 bg-black'}`}>
-      {msg}
-    </div>
-  </div>
-);
-
-export default App;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
